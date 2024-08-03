@@ -6,9 +6,7 @@ Create an .env file and pass your RPC_URL and WALLET_PRIVATE_KEY.
 
 # TLDR quick run
 
-Set the tokenA and tokenB in `src/index.js swapConfig`. Also, you have to pass the lp address of the token pair to get the poolKeys. We are currently getting them by manually passing the lp address, but you get the LP address using dexscreener api and pass it to the fetchPoolKeys function param.
-
-Sample DexScreener Endpoint: https://api.dexscreener.com/latest/dex/tokens/4VepvRqCwQatUaEVoU2JsK9H4cWNj1fEvJ7anmsXUgP8
+Set the tokenA and tokenB in `src/index.js swapConfig`. 
 
 Run the swap:
 
