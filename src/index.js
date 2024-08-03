@@ -4,6 +4,7 @@ const dotenv = require('dotenv')
 dotenv.config();
 const { encode } = require("bs58");
 const fetchPoolKeys = require('./poolkeys');
+const axios = require('axios');
 
 /**
  * Performs a token swap on the Raydium protocol.
@@ -15,8 +16,8 @@ const swapConfig = {
   executeSwap: true, // Send tx when true, simulate tx when false
   useVersionedTransaction: true,
   tokenAAmount: 0.0001, // Swap 0.01 SOL for USDC in this example
-  tokenAAddress: "So11111111111111111111111111111111111111112", // Token to swap for the other, SOL in this case
-  tokenBAddress: "4VepvRqCwQatUaEVoU2JsK9H4cWNj1fEvJ7anmsXUgP8", // USDC address
+  tokenAAddress: "So11111111111111111111111111111111111111112", // Solana Address
+  tokenBAddress: "6qMpykXbykB199VM9iMcPnj18jbNFLanBzo294Ue4mLz", //  Token Address
   maxLamports: 1500000, // Micro lamports for priority fee
   direction: "in", // Swap direction: 'in' or 'out'
   liquidityFile: "trimmed_mainnet.json",
@@ -32,7 +33,23 @@ const swap = async () => {
   console.log(`Raydium swap initialized`);
   console.log(`Swapping ${swapConfig.tokenAAmount} of ${swapConfig.tokenAAddress} for ${swapConfig.tokenBAddress}...`)
 
-  const poolKeys = await fetchPoolKeys("5MPyNkgB5Sd2RnAbGo4x6qARkit4y2jacDsZtXNzUqPd")
+  const config = {
+    method: 'get',
+    maxBodyLength: Infinity,
+    url: `https://api.dexscreener.com/latest/dex/tokens/${swapConfig.tokenBAddress}`,
+    headers: {
+        'Accept': 'application/json'
+      }
+  };
+
+  const response = await axios.request(config, { timeout: 300 });
+  const { data } = response;
+
+  const findSolPair = data.pairs.find(pairs => pairs.quoteToken.address === swapConfig.tokenAAddress);
+
+  let lpAddy = findSolPair.pairAddress;
+
+  const poolKeys = await fetchPoolKeys(lpAddy)
 
   /**
    * Load pool keys from the Raydium API to enable finding pool information.
@@ -90,3 +107,4 @@ const swap = async () => {
 };
 
 swap();
+
