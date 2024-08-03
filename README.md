@@ -1,10 +1,8 @@
 <p>
- <h3 align="center">Raydium SDK to swap tokens without downloading the long mainnet.json file</h3>
+ <h3 align="left">Raydium SDK to swap tokens without downloading the long mainnet.json file</h3>
 </p>
 
 Create an .env file and pass your RPC_URL and WALLET_PRIVATE_KEY. 
-
-# TLDR quick run
 
 Set the tokenA and tokenB in `src/index.js swapConfig`. 
 
