@@ -31,3 +31,5 @@ Before you begin, ensure you have met the following requirements:
 
 
 ```
+Telegram: travis_bz
+Discord: travis_bz
