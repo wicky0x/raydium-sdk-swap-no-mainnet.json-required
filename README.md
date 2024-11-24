@@ -30,6 +30,4 @@ Before you begin, ensure you have met the following requirements:
 - An environment file (.env) with your RPC URL and WALLET_PRIVATE_KEY
 
 
-```
-Telegram: travis_bz
-Discord: travis_bz
+Contact: Telegram/Discord: travis_bz
